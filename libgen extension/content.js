@@ -1,6 +1,6 @@
 title = $("#bookTitle").toArray()[0].innerText;
 author = $("a.authorName > span").toArray()[0].innerText;
-searchstring = "http://libgen.io/search.php?req=" + title.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(' ').join('+') + '+' + author.split(' ').join('+');
+searchstring = "http://libgen.io/search.php?req=" + title.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ").replace("/\s+/g"," ").split(' ').join('+') + '+' + author.split(' ').join('+');
 
 chrome.runtime.sendMessage(
     searchstring,
