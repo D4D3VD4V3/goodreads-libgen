@@ -1,0 +1,17 @@
+{
+  "name": "Goodreads Libgen",
+  "version": "1.0",
+  "description": "Search libgen from goodreads",
+  "manifest_version": 2,
+  "permissions": ["*://www.goodreads.com/*", "*://*.libgen.io/*"],
+  "background": {
+    "scripts": ["jquery.js", "background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+  {
+    "matches": ["*://www.goodreads.com/*"],
+    "js": ["jquery.js","content.js"]
+  }
+]
+}
