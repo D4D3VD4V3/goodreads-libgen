@@ -1,3 +1,7 @@
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
 		
@@ -13,17 +17,16 @@ chrome.runtime.onMessage.addListener(
 				//var match = $(data).filter("tr");
 				var datastring = JSON.stringify(data);
 				//console.log(datastring);
-				var md5s = datastring.match(/md5=[a-f0-9]{32}/gm);
+				var md5s = datastring.match(/md5=[a-f0-9]{32}/gm).filter(onlyUnique);
 				//var exts = Array.from(datastring.matchAll(/<td\snowrap>(epub|mobi|azw|azw3)<\/td>/gm));
 				var exts = [];
-				var rx = new RegExp(/<td\snowrap>(epub|mobi|azw|azw3)<\/td>/gm);
+				var rx = new RegExp(/<td\snowrap>(epub|mobi|azw|azw3|)<\/td>/gm);
 				while((match = rx.exec(datastring)) != null) {
 						exts.push(match[1]);
 				}
+				console.log(md5s);
 				console.log(exts);
-				//console.log("matching");
-				//console.log(Object.entries(match));
-				sendResponse(true);
+				sendResponse([[md5s[0], exts[0]]]);
 			}
 	}});
 		var req = new XMLHttpRequest(); 
